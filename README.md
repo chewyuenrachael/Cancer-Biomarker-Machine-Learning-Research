@@ -98,18 +98,37 @@ Identified highly correlated gene pairs:
   - Clusters from all algorithms did not significantly predict survival outcomes.
   - Concordance indices were around 0.54, indicating weak predictive power.
 
-## Conclusions
+## Conclusion
 
-- The clustering algorithms applied did not produce clusters that significantly predict survival outcomes.
-- The selected molecular biomarkers, in isolation, may not be sufficient to stratify patients based on prognosis.
-- Further research is needed to identify more robust biomarkers or incorporate additional data.
+Considering the results:
+
+- **Statistical Significance (p-values):** None of the clustering methods produced a statistically significant p-value in the Cox model for the cluster coefficient. This implies that, according to this test, none of the clusters from the different methods significantly differentiated survival outcomes.
+
+- **Concordance Index:** The C-index is around 0.54 for both K-Means and Spectral Clustering, which is slightly better than a random guess (C-index of 0.5). The SVM clustering had a C-index of 0.50, equivalent to a random guess. The concordance index suggests that both K-Means and Spectral Clustering might offer a marginal improvement over SVM in terms of predictive accuracy.
+
+- **Partial AIC:** The Partial AIC is slightly higher for Spectral Clustering, which suggests it has a slightly worse fit compared to K-Means and SVM, given that lower AIC values are preferred. However, the differences are minimal, which indicates that all models have a similar fit to the data.
+
+In conclusion, **none of the clustering methods clearly outperforms the others** based on the metrics provided. All three have similarly low concordance indices and non-significant p-values for their cluster coefficients in the Cox model. This suggests that the clusters defined by these methods do not have a strong relationship with survival outcomes in the dataset, at least not in a way that is detectable by the Cox Proportional Hazards model.
 
 ## Future Work
 
-1. **Incorporate Additional Covariates**: Include more clinical variables or molecular data to enhance model accuracy.
-2. **Alternative Models**: Explore advanced survival models like machine learning-based approaches.
-3. **Functional Analysis**: Conduct pathway or gene set enrichment analyses to understand biological significance.
-4. **Clustering Validation**: Use internal validation metrics and external datasets for cluster validation.
+1. **Incorporate More Covariates:** If other patient or molecular covariates are available, include them in the Cox model to control for potential confounders and possibly increase the model's predictive power.
+
+2. **Consider Stratification:** If you suspect that the effect of clustering on survival may differ across different patient subgroups (e.g., based on disease stage or treatment), consider stratifying the analysis accordingly.
+
+3. **Examine Cluster Composition:** Investigate the characteristics of the clusters formed by each algorithm. Look for biological or clinical patterns that may explain why certain patients are grouped together.
+
+4. **Model Calibration:** Assess the calibration of the Cox models by comparing predicted survival probabilities with observed outcomes across the range of predicted risks.
+
+5. **Model Validation:** If you have access to an independent dataset, validate the clustering algorithms' performance on this new dataset to assess the robustness of your findings.
+
+6. **Use Alternative Survival Models:** Beyond the Cox model, consider applying alternative survival models like parametric survival models, accelerated failure time models, or machine learning-based survival models that can handle complex interactions and non-linear relationships.
+
+7. **Functional Interpretation:** For molecular data, investigate the functional implications of the genes most associated with the clusters. This might involve pathway analysis or gene set enrichment analysis.
+
+8. **Survival Tree Models:** Utilize tree-based survival models that can automatically detect interactions and non-linear effects in the survival data.
+
+9. **Clustering Validation:** Use internal validation metrics like silhouette scores, Dunn index, or Davies-Bouldin index to evaluate the quality of clusters formed by each algorithm.
 
 ## Dependencies
 
